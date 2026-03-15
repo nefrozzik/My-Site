@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en, ru">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -185,10 +185,6 @@
             background: #c0d4ff;
             color: #000;
         }
-            background: #000080;
-            color: #fff;
-            border-color: #000;
-        }
 
         .lang-switch button:hover { background: #f0f0f0; }
 
@@ -232,7 +228,6 @@
         .portfolio-item audio { width: 100%; margin-top: 4px; }
 
         .portfolio-item.visible { opacity: 1; transform: none; }
-        }
 
         .portfolio-item p {
             color: #222;
@@ -243,6 +238,63 @@
         .portfolio-item audio {
             width: 100%;
             margin-top: 4px;
+        }
+
+        .xp-player {
+            margin-top: 10px;
+            background: #e8ebf0;
+            border: 2px solid #777;
+            border-radius: 3px;
+            padding: 8px;
+            box-shadow: inset 0 1px 0 #fff;
+        }
+        .xp-player .title-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(180deg, #0a4cc5, #003f8c);
+            color: #fff;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 3px 6px;
+            border: 1px solid #000;
+            margin-bottom: 6px;
+        }
+        .xp-player .controls {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+        .xp-player .controls button {
+            background: #d6d6d6;
+            border: 2px outset #fff;
+            color: #000;
+            font-weight: bold;
+            padding: 3px 8px;
+            cursor: pointer;
+            border-radius: 2px;
+            font-size: 11px;
+        }
+        .xp-player .controls button:active { border-style: inset; }
+        .xp-player .progress-wrap {
+            border: 2px solid #333;
+            background: #fff;
+            height: 12px;
+            width: 100%;
+            position: relative;
+            cursor: pointer;
+        }
+        .xp-player .progress {
+            background: #0b75ff;
+            height: 100%;
+            width: 0;
+        }
+        .xp-player .time {
+            margin-top: 4px;
+            font-size: 11px;
+            color: #000;
+            font-weight: bold;
         }
 
         .btn.small {
@@ -279,35 +331,44 @@
         </div>
 
     </div>
-
+<div class="xp-player" id="xpPlayer">
+            <div class="title-bar">
+                <div id="playerTitle" data-i18n="playerTitle">XP Music Player</div>
+                <div style="font-size: 10px;" data-i18n="playerVersion">v1.0</div>
+            </div>
+            <div class="controls">
+                <button id="prevBtn" data-i18n="prevBtn">◀◀</button>
+                <button id="playPauseBtn" data-i18n="playPauseBtn">▶</button>
+                <button id="nextBtn" data-i18n="nextBtn">▶▶</button>
+                <span id="currentTrack" style="margin-left: 8px; font-weight: bold; font-size: 12px;">‹/RAWR›</span>
+            </div>
+            <div class="progress-wrap" id="progressWrap">
+                <div class="progress" id="progressBar"></div>
+            </div>
+            <div class="time"><span id="timeCurrent">0:00</span> / <span id="timeTotal">0:00</span></div>
+        </div>
     <div id="portfolio" class="portfolio-section">
         <h2 id="portfolioTitle">My Portfolio</h2>
         <div class="portfolio-items">
             <div class="portfolio-item">
                 <h3 id="track1">‹/RAWR›</h3>
                 <p id="track1desc">My Latest Work</p>
-                <audio controls>
-                    <source src="rawr.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
+                <button class="btn" data-track="0" data-i18n="playInPlayer">▶ Play in player</button>
             </div>
             <div class="portfolio-item">
                 <h3 id="track2">[hyperactivity]</h3>
                 <p id="track2desc">My First Work</p>
-                <audio controls>
-                    <source src="hyperactivity.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
+                <button class="btn" data-track="1" data-i18n="playInPlayer">▶ Play in player</button>
             </div>
             <div class="portfolio-item">
                 <h3 id="track3">in progress</h3>
                 <p id="track3desc">soon...</p>
+                <button class="btn" disabled style="opacity: .5; cursor: not-allowed;" data-i18n="comingSoon">🔒 Coming soon</button>
             </div>
         </div>
     </div>
         </div>
     </div>
-
     <script>
         const i18nData = {
             en: {
@@ -317,6 +378,13 @@
                 telegram: '💬 Telegram',
                 github: '🐙 GitHub',
                 portfolioTitle: 'My Portfolio',
+                playerTitle: 'XP Music Player',
+                playerVersion: 'i really like this pretty thing',
+                prevBtn: '◀◀',
+                playPauseBtn: '▶',
+                nextBtn: '▶▶',
+                playInPlayer: '▶ Play in player',
+                comingSoon: '🔒 Coming soon',
                 track1: '‹/RAWR›',
                 track1desc: 'My Latest Work',
                 track2: '[hyperactivity]',
@@ -331,6 +399,13 @@
                 telegram: '💬 Telegram',
                 github: '🐙 GitHub',
                 portfolioTitle: 'Моё Портфолио',
+                playerTitle: 'Плеер XP',
+                playerVersion: 'i really like this pretty thing',
+                prevBtn: '◀◀',
+                playPauseBtn: '▶',
+                nextBtn: '▶▶',
+                playInPlayer: '▶ Играть в плеере',
+                comingSoon: '🔒 Скоро',
                 track1: '‹/RAWR›',
                 track1desc: 'Моя последняя работа',
                 track2: '[hyperactivity]',
@@ -352,6 +427,13 @@
             document.getElementById('track2desc').textContent = i18nData[lang].track2desc;
             document.getElementById('track3').textContent = i18nData[lang].track3;
             document.getElementById('track3desc').textContent = i18nData[lang].track3desc;
+            document.getElementById('playerTitle').textContent = i18nData[lang].playerTitle;
+            document.querySelector('[data-i18n="playerVersion"]').textContent = i18nData[lang].playerVersion;
+            document.getElementById('prevBtn').textContent = i18nData[lang].prevBtn;
+            document.getElementById('playPauseBtn').textContent = i18nData[lang].playPauseBtn;
+            document.getElementById('nextBtn').textContent = i18nData[lang].nextBtn;
+            document.querySelectorAll('[data-i18n="playInPlayer"]').forEach(el => el.textContent = i18nData[lang].playInPlayer);
+            document.querySelectorAll('[data-i18n="comingSoon"]').forEach(el => el.textContent = i18nData[lang].comingSoon);
 
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
         }
@@ -378,6 +460,80 @@
             } else {
                 items.forEach(item => item.classList.add('visible'));
             }
+
+            const tracks = [
+                { title: '‹/RAWR›', src: 'rawr.mp3' },
+                { title: '[hyperactivity]', src: 'hyperactivity.mp3' }
+            ];
+            let currentTrackIndex = 0;
+            const audio = new Audio(tracks[0].src);
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const currentTrackEl = document.getElementById('currentTrack');
+            const progressBar = document.getElementById('progressBar');
+            const progressWrap = document.getElementById('progressWrap');
+            const timeCurrent = document.getElementById('timeCurrent');
+            const timeTotal = document.getElementById('timeTotal');
+
+            function updateTrackText() {
+                currentTrackEl.textContent = tracks[currentTrackIndex].title;
+            }
+
+            function playTrack() {
+                audio.play().catch(() => {});
+                playPauseBtn.textContent = '⏸';
+            }
+
+            function pauseTrack() {
+                audio.pause();
+                playPauseBtn.textContent = '▶';
+            }
+
+            function setTrack(index) {
+                currentTrackIndex = (index + tracks.length) % tracks.length;
+                audio.src = tracks[currentTrackIndex].src;
+                audio.load();
+                updateTrackText();
+                playTrack();
+            }
+
+            playPauseBtn.addEventListener('click', () => {
+                if (audio.paused) playTrack(); else pauseTrack();
+            });
+            prevBtn.addEventListener('click', () => setTrack(currentTrackIndex - 1));
+            nextBtn.addEventListener('click', () => setTrack(currentTrackIndex + 1));
+
+            document.querySelectorAll('[data-track]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const idx = Number(btn.dataset.track);
+                    if (!Number.isNaN(idx)) setTrack(idx);
+                });
+            });
+
+            audio.addEventListener('timeupdate', () => {
+                if (audio.duration) {
+                    const percent = (audio.currentTime / audio.duration) * 100;
+                    progressBar.style.width = percent + '%';
+                    const format = (sec) => {
+                        const m = Math.floor(sec / 60);
+                        const s = Math.floor(sec % 60).toString().padStart(2, '0');
+                        return `${m}:${s}`;
+                    };
+                    timeCurrent.textContent = format(audio.currentTime);
+                    timeTotal.textContent = format(audio.duration);
+                }
+            });
+
+            progressWrap.addEventListener('click', (event) => {
+                if (!audio.duration) return;
+                const rect = progressWrap.getBoundingClientRect();
+                const percent = (event.clientX - rect.left) / rect.width;
+                audio.currentTime = percent * audio.duration;
+            });
+
+            audio.addEventListener('ended', () => setTrack(currentTrackIndex + 1));
+            updateTrackText();
         });
     </script>
 
