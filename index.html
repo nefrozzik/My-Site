@@ -13,306 +13,236 @@
         /* Основной фон */
         body {
             margin: 0;
-            padding: 0;
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #87ceeb 0%, #98fb98 40%, #add8e6 70%, #90ee90 100%);
+            padding: 14px;
+            font-family: Tahoma, Arial, sans-serif;
+            font-size: 10px;
+            background: #3b8ec2;
+            color: #000;
             min-height: 100vh;
-            position: relative;
         }
+
+        .window {
+            width: min(840px, 95%);
+            margin: 0 auto;
+            border: 2px solid #000;
+            background: #c0c0c0;
+            box-shadow: 2px 2px 0 #fff, 4px 4px 0 #444;
+            overflow: hidden;
+        }
+
+        .window-header {
+            background: #000080;
+            color: #fff;
+            padding: 5px 8px;
+            font-weight: bold;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #4040a0;
+            text-shadow: none;
+        }
+
+        .window-controls { display: flex; gap: 4px; }
+        .window-controls span {
+            width: 16px;
+            height: 16px;
+            border: 1px solid #999;
+            background: #c0c0c0;
+            color: #000;
+            font-size: 12px;
+            line-height: 16px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 2px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+        }
+
+        .window-body { background: #fff; padding: 12px; }
 
         /* АНИМАЦИИ */
-        /* 1. Плавное парение пузырей */
-        @keyframes float {
-            0% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-20px) scale(1.02); }
-            100% { transform: translateY(0px) scale(1); }
-        }
-
-        /* 2. Появление карточки при загрузке */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 3. Пробегающий блик для кнопок */
-        @keyframes shine {
-            0% { left: -100%; }
-            20% { left: 100%; }
-            100% { left: 100%; }
-        }
-
-        /* 4. Появление портфолио */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Декоративные пузыри с разными параметрами анимации */
-        .bubble {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2) 60%, rgba(255, 255, 255, 0.6));
-            box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.8), 0 15px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-        }
-
-        .bubble1 { 
-            width: 200px; height: 200px; top: 10%; left: 15%; 
-            animation: float 7s ease-in-out infinite; 
-        }
-        .bubble2 { 
-            width: 100px; height: 100px; bottom: 20%; right: 20%; 
-            animation: float 5s ease-in-out infinite 1s; /* Задержка 1s для асинхронности */
-        }
-        .bubble3 { 
-            width: 280px; height: 280px; bottom: -50px; left: -20px; opacity: 0.8; 
-            animation: float 9s ease-in-out infinite 2s; 
-        }
-        .bubble4 { 
-            width: 150px; height: 150px; top: 50%; right: 10%; 
-            animation: float 6s ease-in-out infinite 3s; 
-        }
+        /* Classic XP: no animations */
 
         /* Карточка */
         .card {
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            border-radius: 25px;
-            padding: 50px 40px;
+            background: #f4f4f4;
+            border: 2px solid #777;
+            border-radius: 3px;
+            padding: 10px;
             text-align: center;
-            width: 350px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2), inset 0 0 30px rgba(255, 255, 255, 0.9);
-            z-index: 10;
-            animation: fadeUp 1.2s ease-out forwards; /* Анимация при загрузке */
+            width: 100%;
+            max-width: 360px;
+            box-shadow: inset 0 1px 0 #fff;
         }
 
         /* Аватарка */
         .avatar {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            background-image: url("avatar.jpg"); /* Замените на путь к вашей аватарке */
+            width: 90px;
+            height: 90px;
+            border-radius: 4px;
+            background-image: url("avatar.jpg");
             background-size: cover;
-            margin: 0 auto 25px auto;
-            border: 5px solid rgba(255, 255, 255, 0.95);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25), inset 0 3px 8px rgba(255,255,255,0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            background-position: center;
+            background-color: #999;
+            margin: 0 auto 10px auto;
+            border: 2px solid #666;
+            box-shadow: inset 0 1px 0 #fff;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: block;
         }
 
         .avatar:hover {
-            transform: scale(1.08) rotate(2deg); /* Легкое увеличение и поворот аватарки при наведении */
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), inset 0 3px 8px rgba(255,255,255,0.7);
+            transform: scale(1.08);
+            box-shadow: 0 0 0 1px #fff inset, 0 2px 6px rgba(0,0,0,0.3);
         }
 
         /* Типографика */
         h1 {
-            color: #1e88e5;
-            margin: 0 0 8px 0;
-            font-size: 28px;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8), 0 0 10px rgba(30, 136, 229, 0.5);
+            color: #000;
+            margin: 10px 0 4px;
+            font-size: 22px;
+            font-weight: bold;
         }
 
         p.subtitle {
-            color: #43a047;
-            margin: 0 0 35px 0;
-            font-size: 16px;
-            font-weight: 600;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9);
+            color: #003f87;
+            margin: 0 0 10px 0;
+            font-size: 13px;
+            font-weight: bold;
         }
 
         /* Кнопки */
         .btn {
-            display: block;
-            margin: 18px 0;
-            padding: 14px 25px;
+            display: inline-block;
+            margin: 4px 3px;
+            padding: 4px 10px;
             text-decoration: none;
-            color: white;
+            color: #000;
             font-weight: bold;
-            font-size: 17px;
-            border-radius: 35px;
-            background: linear-gradient(to bottom, #4caf50 0%, #2e7d32 100%);
-            box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.9), 0 6px 12px rgba(0, 0, 0, 0.25);
-            border: 2px solid #1b5e20;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden; /* Важно для блика, чтобы он не выходил за края */
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            font-size: 12px;
+            border: 2px outset #fff;
+            background: #e0e0e0;
+            border-radius: 2px;
+            box-shadow: inset 0 1px 0 #fff;
         }
 
-        /* Статичный верхний блик */
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            right: 2px;
-            height: 45%;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.7), rgba(255,255,255,0.1));
-            border-radius: 28px 28px 10px 10px;
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        /* Динамичный пробегающий блик */
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
-            transform: skewX(-25deg);
-            z-index: 1;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: inset 0 2px 2px rgba(255, 255, 255, 1), 0 8px 16px rgba(0, 0, 0, 0.35);
-            filter: brightness(1.15);
-        }
-
-        /* Запуск анимации блика при наведении */
-        .btn:hover::after {
-            animation: shine 1.8s infinite;
-        }
-
-        .btn:active {
-            transform: translateY(1px) scale(0.98);
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3), 0 3px 6px rgba(0, 0, 0, 0.25);
-        }
-
-        /* Синяя версия кнопки */
         .btn.blue {
-            background: linear-gradient(to bottom, #42a5f5 0%, #1565c0 100%);
-            border: 2px solid #0d47a1;
+            background: #e0e0e0;
+            color: #000;
+            border: 2px outset #fff;
         }
+
+        .btn:hover { background: #f5f5f5; }
+        .btn:active { border-style: inset; }
+
+        .designer-btn {
+            background: #d4d4d4;
+            border: 2px outset #fff;
+            padding: 4px 10px;
+            font-weight: bold;
+            font-size: 12px;
+            color: #000;
+        }
+
+        .designer-btn:hover { background: #f0f0f0; }
+        .designer-btn:active { border-style: inset; }
 
         /* Hero section */
         .hero-section {
-            height: 100vh;
             display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             position: relative;
             overflow: hidden;
+            padding: 8px;
         }
 
         .lang-switch {
             display: flex;
             justify-content: center;
-            margin-bottom: 10px;
-            gap: 6px;
+            margin-bottom: 8px;
+            gap: 5px;
         }
 
         .lang-switch button {
-            border: 1px solid #ffffff88;
-            border-radius: 999px;
-            padding: 6px 10px;
-            font-size: 12px;
-            font-weight: 700;
+            border: 2px outset #fff;
+            background: #e0e0e0;
+            color: #000;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 2px 8px;
             cursor: pointer;
-            background: rgba(255,255,255,0.35);
-            color: #1a3a64;
-            transition: 0.2s ease;
-        }
-
-        .lang-switch button.active {
-            background: #ffffff;
-            border-color: #ffffff;
-            color: #0d3e72;
         }
 
         .lang-switch button:hover {
-            opacity: 0.9;
+            background: #f0f0f0;
         }
+
+        .lang-switch button.active {
+            border-color: #000080;
+            background: #c0d4ff;
+            color: #000;
+        }
+            background: #000080;
+            color: #fff;
+            border-color: #000;
+        }
+
+        .lang-switch button:hover { background: #f0f0f0; }
 
         /* Portfolio section */
         .portfolio-section {
-            padding: 60px 20px;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 1s ease-out 0.5s forwards;
+            padding: 8px;
+            text-align: left;
+            background: #c0c0c0;
+            border: 2px solid #000;
+            border-radius: 2px;
+            margin-top: 10px;
         }
 
         .portfolio-section h2 {
-            color: #1e88e5;
-            font-size: 32px;
-            margin-bottom: 40px;
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+            margin: 0 0 4px;
+            font-size: 14px;
+            color: #fff;
+            background: #000080;
+            border: 1px solid #000;
+            padding: 2px 4px;
+            display: inline-block;
         }
 
         .portfolio-items {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 6px;
+            margin-top: 6px;
         }
 
         .portfolio-item {
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            padding: 30px;
-            width: 300px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+            background: #fff;
+            border: 2px solid #777;
+            border-radius: 2px;
+            padding: 8px;
+            box-shadow: inset 0 1px 0 #fff;
         }
 
-        .portfolio-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .portfolio-item h3 { color: #000; font-size: 13px; margin: 0 0 4px; font-weight: bold; }
+        .portfolio-item p { color: #222; font-size: 12px; margin: 0 0 4px; }
+        .portfolio-item audio { width: 100%; margin-top: 4px; }
 
-        .portfolio-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .portfolio-item:nth-child(1) { transition-delay: 0.12s; }
-        .portfolio-item:nth-child(2) { transition-delay: 0.18s; }
-        .portfolio-item:nth-child(3) { transition-delay: 0.24s; }
-
-        .portfolio-item h3 {
-            color: #1e88e5;
-            font-size: 22px;
-            margin-bottom: 10px;
+        .portfolio-item.visible { opacity: 1; transform: none; }
         }
 
         .portfolio-item p {
-            color: #333;
-            font-size: 16px;
-            margin-bottom: 20px;
+            color: #222;
+            font-size: 12px;
+            margin-bottom: 8px;
         }
 
         .portfolio-item audio {
             width: 100%;
-            margin-top: 15px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            margin-top: 4px;
         }
 
         .btn.small {
@@ -323,13 +253,13 @@
     </style>
 </head>
 <body>
-
+    <div class="window">
+        <div class="window-header">
+            <div>nefrozzik BIO</div>
+            <div class="window-controls"><span>_</span><span>□</span><span>X</span></div>
+        </div>
+        <div class="window-body">
     <div class="hero-section">
-        <div class="bubble bubble1"></div>
-        <div class="bubble bubble2"></div>
-        <div class="bubble bubble3"></div>
-        <div class="bubble bubble4"></div>
-
         <div class="card">
             <div class="avatar"></div>
             
@@ -345,7 +275,6 @@
                 <a href="https://www.youtube.com/@nefrozzik" class="btn" data-i18n="youtube">▶️ YouTube</a>
                 <a href="https://t.me/nefrozzik" class="btn blue" data-i18n="telegram">💬 Telegram</a>
                 <a href="https://github.com/nefrozzik" class="btn blue" data-i18n="github">🐙 GitHub</a>
-                <a href="#portfolio" class="btn" data-i18n="portfolioBtn">🎧 Portfolio</a>
             </div>
         </div>
 
@@ -376,6 +305,8 @@
             </div>
         </div>
     </div>
+        </div>
+    </div>
 
     <script>
         const i18nData = {
@@ -385,7 +316,6 @@
                 youtube: '▶️ YouTube',
                 telegram: '💬 Telegram',
                 github: '🐙 GitHub',
-                portfolioBtn: '🎧 Portfolio',
                 portfolioTitle: 'My Portfolio',
                 track1: '‹/RAWR›',
                 track1desc: 'My Latest Work',
@@ -400,7 +330,6 @@
                 youtube: '▶️ YouTube',
                 telegram: '💬 Telegram',
                 github: '🐙 GitHub',
-                portfolioBtn: '🎧 Портфолио',
                 portfolioTitle: 'Моё Портфолио',
                 track1: '‹/RAWR›',
                 track1desc: 'Моя последняя работа',
