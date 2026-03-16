@@ -16,19 +16,197 @@
             padding: 14px;
             font-family: Tahoma, Arial, sans-serif;
             font-size: 10px;
-            background: #3b8ec2;
+            background: #3a6ea5; /* Классический цвет фона рабочего стола XP без обоев */
             color: #000;
             min-height: 100vh;
-            /* Кастомный курсор-стрелка */
             cursor: url("data:image/svg+xml,%3Csvg width='15' height='22' viewBox='0 0 15 22' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1,1 l0,14 l3,-3 l2,5 l2,-1 l-2,-5 l4,0 z' fill='white' stroke='black' stroke-width='1.2'/%3E%3C/svg%3E"), default;
         }
 
-        /* Кастомный курсор-рука для кликабельных элементов */
-        a, button, .window-controls img, .progress-wrap, .menu-items span {
-            cursor: url("data:image/svg+xml,%3Csvg width='15' height='22' viewBox='0 0 15 22' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1,1 l0,14 l3,-3 l2,5 l2,-1 l-2,-5 l4,0 z' fill='white' stroke='black' stroke-width='1.2'/%3E%3C/svg%3E"), default;
+        a, button, .window-controls img, .progress-wrap, .menu-items span, .user-btn {
+            cursor: url("data:image/svg+xml,%3Csvg width='15' height='22' viewBox='0 0 15 22' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1,1 l0,14 l3,-3 l2,5 l2,-1 l-2,-5 l4,0 z' fill='white' stroke='black' stroke-width='1.2'/%3E%3C/svg%3E"), pointer !important;
         }
 
-        /* --- АНИМАЦИИ --- */
+        /* --- CRT ЭФФЕКТ С ВИНЬЕТКОЙ --- */
+        body::after {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: 
+                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03)),
+                radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.3) 100%);
+            z-index: 9998;
+            background-size: 100% 3px, 3px 100%, 100% 100%;
+            pointer-events: none;
+        }
+
+        /* --- ЭКРАН ВЫБОРА ЯЗЫКА (WELCOME SCREEN) --- */
+        #power-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            /* Фирменный градиент экрана приветствия XP */
+            background: linear-gradient(to bottom, #002D86 0%, #0046AA 15%, #0053E0 50%, #0046AA 85%, #002D86 100%);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Светящаяся полоса посередине */
+        .welcome-divider {
+            position: absolute;
+            top: 50%; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(to right, transparent 0%, #a4c1ff 50%, transparent 100%);
+            transform: translateY(-50%);
+            box-shadow: 0 0 8px #fff;
+            z-index: 1;
+        }
+
+        .welcome-panel {
+            display: flex;
+            width: 100%;
+            max-width: 700px;
+            height: 300px;
+            background: transparent;
+            align-items: center;
+            z-index: 2; /* Поверх полосы */
+        }
+
+        .welcome-left {
+            flex: 1;
+            text-align: right;
+            padding-right: 40px;
+            border-right: 1px solid rgba(255,255,255,0.4);
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .welcome-left h2 { 
+            font-size: 38px; 
+            margin: 0 0 10px 0; 
+            font-family: Arial, sans-serif;
+            font-weight: normal; 
+            font-style: italic;
+        }
+        
+        .welcome-left h2 span { font-weight: bold; }
+        .welcome-left h2 span.xp { color: #ff8c00; vertical-align: super; font-size: 24px; }
+
+        .welcome-left p { font-size: 16px; opacity: 0.9; margin: 0; }
+
+        .welcome-right {
+            flex: 1;
+            padding-left: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .user-btn {
+            display: flex;
+            align-items: center;
+            background: transparent;
+            border: 1px solid transparent;
+            color: #fff;
+            text-align: left;
+            padding: 8px;
+            border-radius: 5px;
+            transition: 0.1s;
+        }
+
+        .user-btn:hover { 
+            background: rgba(255,255,255,0.1); 
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .user-icon {
+            width: 50px;
+            height: 50px;
+            background: #fff; /* Белый фон для иконки */
+            border: 2px solid #fff;
+            border-radius: 3px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* Заглушка для иконки пользователя */
+        .user-icon::after {
+            content: "👤";
+            font-size: 35px;
+            color: #555;
+        }
+
+        .user-info b { font-size: 18px; display: block; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); font-family: Arial, sans-serif; }
+        .user-info span { font-size: 11px; color: #d0e0ff; }
+
+        /* --- ЗАГРУЗОЧНЫЙ ЭКРАН --- */
+        #boot-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #000;
+            z-index: 9999;
+            display: none; /* Скрыт до нажатия кнопки включения */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+            cursor: wait;
+        }
+
+        .boot-logo {
+            color: #fff;
+            font-size: 36px;
+            font-family: Arial, sans-serif;
+            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .boot-logo-text { display: flex; flex-direction: column; }
+        .boot-logo-text .ms { font-size: 14px; margin-bottom: -5px; }
+        .boot-logo-text .win { font-size: 36px; font-weight: bold; font-style: italic;}
+        .boot-logo-text .win span { color: #ff8c00; font-weight: normal; }
+
+        .xp-loader {
+            width: 154px; height: 17px;
+            border: 2px solid #a5a5a5;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            background: #000;
+            padding: 1px;
+            box-sizing: border-box;
+        }
+
+        /* Аутентичные бегающие синие квадратики */
+        .xp-loader-blocks {
+            display: flex;
+            gap: 2px;
+            position: absolute;
+            height: 11px;
+            top: 1px;
+            animation: xp-load 1.8s infinite linear;
+        }
+
+        .xp-block {
+            width: 9px; height: 100%;
+            background: linear-gradient(180deg, #2838c7 0%, #7a93ff 50%, #2838c7 100%);
+            border-radius: 1px;
+        }
+
+        @keyframes xp-load {
+            0% { left: -40px; }
+            100% { left: 160px; }
+        }
+
+        /* --- АНИМАЦИИ ОКНА --- */
         @keyframes openWindow {
             0% { transform: scale(0.9); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
@@ -49,9 +227,15 @@
             width: min(840px, 95%);
             margin: 0 auto;
             border: 2px solid #000;
-            background: #ece9d8; /* Изменил на классический бежевый цвет окон XP */
+            background: #ece9d8; 
             box-shadow: 2px 2px 0 #fff, 4px 4px 0 #444;
             overflow: hidden;
+            opacity: 0; /* Будет анимировано через JS */
+            position: relative;
+            z-index: 10;
+        }
+
+        .window.show {
             animation: openWindow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
         }
 
@@ -65,36 +249,15 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #4040a0;
-            text-shadow: none;
         }
 
-        .blink {
-            animation: blinkCursor 1s step-end infinite;
-        }
+        .blink { animation: blinkCursor 1s step-end infinite; }
 
-        .window-controls { 
-            display: flex; 
-            gap: 2px; 
-            align-items: center; 
-        }
-        
-        .window-controls img {
-            width: 21px;
-            height: 21px;
-            border-radius: 3px;
-            box-shadow: 0 1px 1px rgba(0,0,0,0.3);
-            transition: transform 0.1s ease;
-        }
+        .window-controls { display: flex; gap: 2px; align-items: center; }
+        .window-controls img { width: 21px; height: 21px; border-radius: 3px; transition: transform 0.1s; }
+        .window-controls img:hover { filter: brightness(1.1); }
+        .window-controls img:active { transform: translateY(1px); }
 
-        .window-controls img:hover {
-            filter: brightness(1.1);
-        }
-
-        .window-controls img:active {
-            transform: translateY(1px);
-        }
-
-        /* --- СТРОКА МЕНЮ --- */
         .menu-bar {
             background: #ece9d8;
             border-bottom: 1px solid #aca899;
@@ -105,251 +268,97 @@
             font-size: 11px;
         }
 
-        .menu-items span {
-            margin-right: 12px;
-            padding: 2px 4px;
-            color: #000;
-            border: 1px solid transparent;
-        }
+        .menu-items span { margin-right: 12px; padding: 2px 4px; color: #000; border: 1px solid transparent; }
+        .menu-items span:hover { background: #316ac5; color: #fff; border: 1px solid #000; border-radius: 2px; }
 
-        .menu-items span:hover {
-            background: #316ac5;
-            color: #fff;
-            border: 1px solid #000;
-            border-radius: 2px;
-        }
-
-        .lang-switch {
-            display: flex;
-            gap: 2px;
-        }
-
-        .lang-switch button {
-            border: 1px solid transparent;
-            background: transparent;
-            color: #000;
-            font-size: 10px;
-            padding: 2px 6px;
-            border-radius: 2px;
-            box-shadow: none;
-        }
-
-        .lang-switch button:hover {
-            background: #c1d2ee;
-            border: 1px solid #316ac5;
-        }
-
-        .lang-switch button.active {
-            background: #c1d2ee;
-            border: 1px solid #316ac5;
-            font-weight: bold;
-        }
-        /* ------------------- */
+        .lang-switch { display: flex; gap: 2px; }
+        .lang-switch button { border: 1px solid transparent; background: transparent; color: #000; font-size: 10px; padding: 2px 6px; border-radius: 2px; }
+        .lang-switch button:hover { background: #c1d2ee; border: 1px solid #316ac5; }
+        .lang-switch button.active { background: #c1d2ee; border: 1px solid #316ac5; font-weight: bold; }
 
         .window-body { background: #fff; padding: 12px; border-top: 1px solid #fff; }
 
-        /* Карточка */
-        .card {
-            background: #f4f4f4;
-            border: 2px solid #777;
-            border-radius: 3px;
-            padding: 10px;
-            text-align: center;
-            width: 100%;
-            max-width: 360px;
-            box-shadow: inset 0 1px 0 #fff;
-        }
+        .card { background: #f4f4f4; border: 2px solid #777; border-radius: 3px; padding: 10px; text-align: center; width: 100%; max-width: 360px; box-shadow: inset 0 1px 0 #fff; }
+        .avatar { width: 90px; height: 90px; border-radius: 4px; background-image: url("avatar1.jpg"); background-size: cover; background-position: center; background-color: #999; margin: 0 auto 10px auto; border: 2px solid #666; box-shadow: inset 0 1px 0 #fff; transition: transform 0.2s, box-shadow 0.2s; display: block; }
+        .avatar:hover { transform: scale(1.08); box-shadow: 0 0 0 1px #fff inset, 0 2px 6px rgba(0,0,0,0.3); }
 
-        /* Аватарка */
-        .avatar {
-            width: 90px;
-            height: 90px;
-            border-radius: 4px;
-            background-image: url("avatar1.jpg");
-            background-size: cover;
-            background-position: center;
-            background-color: #999;
-            margin: 0 auto 10px auto;
-            border: 2px solid #666;
-            box-shadow: inset 0 1px 0 #fff;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            display: block;
-        }
+        h1 { color: #000; margin: 10px 0 4px; font-size: 22px; font-weight: bold; }
+        p.subtitle { color: #003f87; margin: 0 0 10px 0; font-size: 13px; font-weight: bold; }
 
-        .avatar:hover {
-            transform: scale(1.08);
-            box-shadow: 0 0 0 1px #fff inset, 0 2px 6px rgba(0,0,0,0.3);
-        }
-
-        h1 {
-            color: #000;
-            margin: 10px 0 4px;
-            font-size: 22px;
-            font-weight: bold;
-        }
-
-        p.subtitle {
-            color: #003f87;
-            margin: 0 0 10px 0;
-            font-size: 13px;
-            font-weight: bold;
-        }
-
-        .btn {
-            display: inline-block;
-            margin: 4px 3px;
-            padding: 4px 10px;
-            text-decoration: none;
-            color: #000;
-            font-weight: bold;
-            font-size: 12px;
-            border: 2px outset #fff;
-            background: #e0e0e0;
-            border-radius: 2px;
-            box-shadow: inset 0 1px 0 #fff;
-        }
-
+        .btn { display: inline-block; margin: 4px 3px; padding: 4px 10px; text-decoration: none; color: #000; font-weight: bold; font-size: 12px; border: 2px outset #fff; background: #e0e0e0; border-radius: 2px; box-shadow: inset 0 1px 0 #fff; }
         .btn:hover { background: #f5f5f5; }
         .btn:active { border-style: inset; }
 
-        .links {
-            display: flex;
-            justify-content: center;
-            gap: 4px;
-            flex-wrap: wrap;
-        }
+        .links { display: flex; justify-content: center; gap: 4px; flex-wrap: wrap; }
+        .hero-section { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; align-items: flex-start; padding: 8px; }
 
-        .hero-section {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 8px;
-        }
-
-        .portfolio-section {
-            padding: 8px;
-            text-align: center;
-            background: #ece9d8;
-            border: 2px solid #000;
-            border-radius: 2px;
-            margin-top: 10px;
-        }
-
-        .portfolio-section h2 {
-            margin: 0 0 0px;
-            font-size: 13px;
-            color: #fff;
-            background: linear-gradient(180deg, #0a4cc5, #003f8c);
-            border: 1px solid #000;
-            padding: 2px 4px;
-            display: inline-block;
-        }
-
-        .portfolio-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 6px;
-            margin-top: 6px;
-        }
-
-        .portfolio-item {
-            background: #fff;
-            border: 2px solid #777;
-            border-radius: 2px;
-            padding: 8px;
-            box-shadow: inset 0 1px 0 #fff;
-            transition: transform 0.1s;
-        }
-        
-        .portfolio-item:hover {
-            transform: translateY(-2px);
-        }
-
+        .portfolio-section { padding: 8px; text-align: center; background: #ece9d8; border: 2px solid #000; border-radius: 2px; margin-top: 10px; }
+        .portfolio-section h2 { margin: 0 0 0px; font-size: 13px; color: #fff; background: linear-gradient(180deg, #0a4cc5, #003f8c); border: 1px solid #000; padding: 2px 4px; display: inline-block; }
+        .portfolio-items { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 6px; margin-top: 6px; }
+        .portfolio-item { background: #fff; border: 2px solid #777; border-radius: 2px; padding: 8px; box-shadow: inset 0 1px 0 #fff; transition: transform 0.1s; }
+        .portfolio-item:hover { transform: translateY(-2px); }
         .portfolio-item h3 { color: #000; font-size: 13px; margin: 0 0 4px; font-weight: bold; }
         .portfolio-item p { color: #222; font-size: 12px; margin-bottom: 8px; }
 
-        .xp-player {
-            margin-top: 10px;
-            background: #e8ebf0;
-            border: 2px solid #777;
-            border-radius: 3px;
-            padding: 8px;
-            box-shadow: inset 0 1px 0 #fff;
-        }
-        .xp-player .title-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(180deg, #0a4cc5, #003f8c);
-            color: #fff;
-            font-size: 11px;
-            font-weight: bold;
-            padding: 3px 6px;
-            border: 1px solid #000;
-            margin-bottom: 6px;
-        }
-        .xp-player .controls {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 6px;
-        }
-        .xp-player .controls button {
-            background: #d6d6d6;
-            border: 2px outset #fff;
-            color: #000;
-            font-weight: bold;
-            padding: 3px 8px;
-            border-radius: 2px;
-            font-size: 11px;
-        }
-        .xp-player .progress-wrap {
-            border: 2px solid #333;
-            background: #fff;
-            height: 12px;
-            width: 100%;
-            position: relative;
-        }
-        .xp-player .progress {
-            background-color: #0b75ff;
-            height: 100%;
-            width: 0;
-            background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
-            background-size: 20px 20px;
-            animation: moveStripes 1s linear infinite;
-            transition: width 0.1s linear;
-        }
-        
-        .xp-player .time {
-            margin-top: 4px;
-            font-size: 11px;
-            color: #000;
-            font-weight: bold;
-        }
+        .xp-player { margin-top: 10px; background: #e8ebf0; border: 2px solid #777; border-radius: 3px; padding: 8px; box-shadow: inset 0 1px 0 #fff; }
+        .xp-player .title-bar { display: flex; justify-content: space-between; align-items: center; background: linear-gradient(180deg, #0a4cc5, #003f8c); color: #fff; font-size: 11px; font-weight: bold; padding: 3px 6px; border: 1px solid #000; margin-bottom: 6px; }
+        .xp-player .controls { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+        .xp-player .controls button { background: #d6d6d6; border: 2px outset #fff; color: #000; font-weight: bold; padding: 3px 8px; border-radius: 2px; font-size: 11px; }
+        .xp-player .progress-wrap { border: 2px solid #333; background: #fff; height: 12px; width: 100%; position: relative; }
+        .xp-player .progress { background-color: #0b75ff; height: 100%; width: 0; background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent); background-size: 20px 20px; animation: moveStripes 1s linear infinite; transition: width 0.1s linear; }
+        .xp-player .time { margin-top: 4px; font-size: 11px; color: #000; font-weight: bold; }
 
-        .platform-links {
-            margin-top: 6px;
-            font-size: 11px;
-            color: #333;
-        }
-
-        .platform-links a {
-            color: #003f8c;
-            text-decoration: none;
-            border-bottom: 1px dotted #003f8c;
-        }
+        .platform-links { margin-top: 6px; font-size: 11px; color: #333; }
+        .platform-links a { color: #003f8c; text-decoration: none; border-bottom: 1px dotted #003f8c; }
     </style>
 </head>
 <body>
-    <div class="window">
+
+    <audio id="startup-sound" src="winxp.mp3" preload="auto"></audio>
+
+   <div id="power-screen">
+        <div class="welcome-divider"></div>
+        <div class="welcome-panel">
+            <div class="welcome-left">
+                <h2><span>Windows</span><span class="xp">xp</span></h2>
+                <p data-i18n="welcomeText">Чтобы начать работу, кликните свое имя пользователя</p>
+            </div>
+            <div class="welcome-right">
+                <button class="user-btn" onclick="bootSystem('ru')">
+                    <div class="user-icon"></div>
+                    <div class="user-info"><b>Русский</b><span>Russian Language</span></div>
+                </button>
+                <button class="user-btn" onclick="bootSystem('en')">
+                    <div class="user-icon"></div>
+                    <div class="user-info"><b>English</b><span>International</span></div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="boot-screen">
+        <div class="boot-logo">
+            <div class="boot-logo-text">
+                <span class="ms">Microsoft</span>
+                <span class="win">Windows <span>XP</span></span>
+            </div>
+        </div>
+        <div class="xp-loader">
+            <div class="xp-loader-blocks">
+                <div class="xp-block"></div>
+                <div class="xp-block"></div>
+                <div class="xp-block"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="window" id="main-window">
         <div class="window-header">
             <div>bio.exe<span class="blink">_</span></div>
             <div class="window-controls">
-                <img src="Minimize.png">
-                <img src="Maximize.png">
-                <img src="Exit.png">
+                <img src="Minimize.png" alt="-">
+                <img src="Maximize.png" alt="[]">
+                <img src="Exit.png" alt="X">
             </div>
         </div>
         
@@ -424,56 +433,35 @@
     </div>
 
     <script>
+        // --- ЛОГИКА ЛОКАЛИЗАЦИИ И ПЛЕЕРА ---
         const i18nData = {
             en: {
-                menuFile: 'File',
-                menuEdit: 'Edit',
-                menuView: 'View',
-                menuHelp: 'Help',
-                heading: 'nefrozzik',
-                subtitle: 'Musician',
-                youtube: '▶️ YouTube',
-                telegram: '💬 Telegram',
-                github: '🐙 GitHub',
-                portfolioTitle: 'My Portfolio',
-                playerTitle: 'XP Music Player',
+                menuFile: 'File', menuEdit: 'Edit', menuView: 'View', menuHelp: 'Help',
+                heading: 'nefrozzik', subtitle: 'Musician',
+                youtube: '▶️ YouTube', telegram: '💬 Telegram', github: '🐙 GitHub',
+                portfolioTitle: 'My Portfolio', playerTitle: 'XP Music Player',
                 playerVersion: 'i really like this pretty thing',
-                prevBtn: '◀◀',
-                playPauseBtn: '▶',
-                nextBtn: '▶▶',
-                playInPlayer: '▶ Play in player',
-                comingSoon: '🔒 Coming soon',
+                prevBtn: '◀◀', playPauseBtn: '▶', nextBtn: '▶▶',
+                playInPlayer: '▶ Play in player', comingSoon: '🔒 Coming soon',
                 listenPlatforms: 'Listen on platforms:',
-                track1: '‹/RAWR›',
-                track1desc: 'My Latest Work',
-                track2: '[hyperactivity]',
-                track2desc: 'My First Work',
+                track1: '‹/RAWR›', track1desc: 'My Latest Work',
+                track2: '[hyperactivity]', track2desc: 'My First Work',
                 track3: 'In progress...',
+                welcomeText: 'To begin, click your user name'
             },
             ru: {
-                menuFile: 'Файл',
-                menuEdit: 'Правка',
-                menuView: 'Вид',
-                menuHelp: 'Справка',
-                heading: 'nefrozzik',
-                subtitle: 'Музыкант',
-                youtube: '▶️ YouTube',
-                telegram: '💬 Telegram',
-                github: '🐙 GitHub',
-                portfolioTitle: 'Моё Портфолио',
-                playerTitle: 'Плеер XP',
+                menuFile: 'Файл', menuEdit: 'Правка', menuView: 'Вид', menuHelp: 'Справка',
+                heading: 'nefrozzik', subtitle: 'Музыкант',
+                youtube: '▶️ YouTube', telegram: '💬 Telegram', github: '🐙 GitHub',
+                portfolioTitle: 'Моё Портфолио', playerTitle: 'Плеер XP',
                 playerVersion: 'i really like this pretty thing',
-                prevBtn: '◀◀',
-                playPauseBtn: '▶',
-                nextBtn: '▶▶',
-                playInPlayer: '▶ Играть в плеере',
-                comingSoon: '🔒 Скоро',
+                prevBtn: '◀◀', playPauseBtn: '▶', nextBtn: '▶▶',
+                playInPlayer: '▶ Играть в плеере', comingSoon: '🔒 Скоро',
                 listenPlatforms: 'Слушать на платформах:',
-                track1: '‹/RAWR›',
-                track1desc: 'Моя последняя работа',
-                track2: '[hyperactivity]',
-                track2desc: 'Моя первая работа',
+                track1: '‹/RAWR›', track1desc: 'Моя последняя работа',
+                track2: '[hyperactivity]', track2desc: 'Моя первая работа',
                 track3: 'В процессе...',
+                welcomeText: 'Чтобы начать работу, кликните свое имя пользователя'
             }
         };
 
@@ -487,12 +475,40 @@
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
         }
 
+        // --- ЛОГИКА ЗАПУСКА ---
+        function bootSystem(lang) {
+            setLanguage(lang); // Устанавливаем выбранный язык
+            
+            const powerScreen = document.getElementById('power-screen');
+            const bootScreen = document.getElementById('boot-screen');
+            const mainWindow = document.getElementById('main-window');
+            const startupSound = document.getElementById('startup-sound');
+
+            // Скрываем экран питания, показываем загрузку
+            powerScreen.style.display = 'none';
+            bootScreen.style.display = 'flex';
+            
+            // Имитируем загрузку (2.5 секунды)
+            setTimeout(() => {
+                bootScreen.style.opacity = '0'; // Затухание
+                
+                // Включаем звук старта
+                startupSound.volume = 0.5; // Громкость 50%
+                startupSound.play().catch(e => console.log("Sound error:", e));
+
+                setTimeout(() => {
+                    bootScreen.style.display = 'none';
+                    mainWindow.classList.add('show'); // Показываем окно с анимацией
+                }, 500); // Ждем завершения анимации затухания
+            }, 2500);
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            // Инициализация кнопок языка внутри окна (на всякий случай)
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
             });
-
-            setLanguage('ru');
+            setLanguage('ru'); // Язык по умолчанию до выбора
 
             const tracks = [
                 { title: '‹/RAWR›', src: 'rawr.mp3' },
@@ -517,9 +533,7 @@
                 return `${m}:${s}`;
             };
 
-            function updateTrackText() {
-                currentTrackEl.textContent = tracks[currentTrackIndex].title;
-            }
+            function updateTrackText() { currentTrackEl.textContent = tracks[currentTrackIndex].title; }
 
             function playTrack() {
                 audio.play().catch(() => { console.log("User interaction required") });
@@ -547,14 +561,10 @@
             nextBtn.addEventListener('click', () => setTrack(currentTrackIndex + 1));
 
             document.querySelectorAll('[data-track]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    setTrack(Number(btn.dataset.track));
-                });
+                btn.addEventListener('click', () => { setTrack(Number(btn.dataset.track)); });
             });
 
-            audio.addEventListener('loadedmetadata', () => {
-                timeTotal.textContent = formatTime(audio.duration);
-            });
+            audio.addEventListener('loadedmetadata', () => { timeTotal.textContent = formatTime(audio.duration); });
 
             audio.addEventListener('timeupdate', () => {
                 if (audio.duration) {
