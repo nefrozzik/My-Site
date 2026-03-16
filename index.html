@@ -10,7 +10,7 @@
             scroll-behavior: smooth;
         }
 
-        /* Основной фон */
+        /* Основной фон и кастомные курсоры */
         body {
             margin: 0;
             padding: 14px;
@@ -19,6 +19,13 @@
             background: #3b8ec2;
             color: #000;
             min-height: 100vh;
+            /* Кастомный курсор-стрелка */
+            cursor: url("data:image/svg+xml,%3Csvg width='15' height='22' viewBox='0 0 15 22' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1,1 l0,14 l3,-3 l2,5 l2,-1 l-2,-5 l4,0 z' fill='white' stroke='black' stroke-width='1.2'/%3E%3C/svg%3E"), default;
+        }
+
+        /* Кастомный курсор-рука для кликабельных элементов */
+        a, button, .window-controls img, .progress-wrap, .menu-items span {
+            cursor: url("data:image/svg+xml,%3Csvg width='20' height='24' viewBox='0 0 20 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8,1 v6 h2 v-4 h2 v4 h2 v-3 h2 v3 h2 v-1 h2 v7 c0,4 -4,7 -7,7 c-4,0 -6,-3 -6,-6 v-8 h2 v3 h2 z' fill='white' stroke='black' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E"), pointer !important;
         }
 
         /* --- АНИМАЦИИ --- */
@@ -42,11 +49,9 @@
             width: min(840px, 95%);
             margin: 0 auto;
             border: 2px solid #000;
-            background: #c0c0c0;
+            background: #ece9d8; /* Изменил на классический бежевый цвет окон XP */
             box-shadow: 2px 2px 0 #fff, 4px 4px 0 #444;
             overflow: hidden;
-            
-            /* Применяем анимацию появления окна */
             animation: openWindow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
         }
 
@@ -76,7 +81,6 @@
         .window-controls img {
             width: 21px;
             height: 21px;
-            cursor: pointer;
             border-radius: 3px;
             box-shadow: 0 1px 1px rgba(0,0,0,0.3);
             transition: transform 0.1s ease;
@@ -90,7 +94,59 @@
             transform: translateY(1px);
         }
 
-        .window-body { background: #fff; padding: 12px; }
+        /* --- СТРОКА МЕНЮ --- */
+        .menu-bar {
+            background: #ece9d8;
+            border-bottom: 1px solid #aca899;
+            padding: 2px 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+        }
+
+        .menu-items span {
+            margin-right: 12px;
+            padding: 2px 4px;
+            color: #000;
+            border: 1px solid transparent;
+        }
+
+        .menu-items span:hover {
+            background: #316ac5;
+            color: #fff;
+            border: 1px solid #000;
+            border-radius: 2px;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 2px;
+        }
+
+        .lang-switch button {
+            border: 1px solid transparent;
+            background: transparent;
+            color: #000;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 2px;
+            box-shadow: none;
+        }
+
+        .lang-switch button:hover {
+            background: #c1d2ee;
+            border: 1px solid #316ac5;
+        }
+
+        .lang-switch button.active {
+            background: #c1d2ee;
+            border: 1px solid #316ac5;
+            font-weight: bold;
+        }
+        /* ------------------- */
+
+        .window-body { background: #fff; padding: 12px; border-top: 1px solid #fff; }
 
         /* Карточка */
         .card {
@@ -151,7 +207,6 @@
             background: #e0e0e0;
             border-radius: 2px;
             box-shadow: inset 0 1px 0 #fff;
-            cursor: pointer;
         }
 
         .btn:hover { background: #f5f5f5; }
@@ -173,36 +228,10 @@
             padding: 8px;
         }
 
-        .lang-switch {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 8px;
-            gap: 5px;
-        }
-
-        .lang-switch button {
-            border: 2px outset #fff;
-            background: #e0e0e0;
-            color: #000;
-            font-size: 11px;
-            font-weight: bold;
-            padding: 2px 8px;
-            cursor: pointer;
-        }
-
-        .lang-switch button:hover {
-            background: #f0f0f0;
-        }
-
-        .lang-switch button.active {
-            border-style: inset;
-            background: #d4d4d4;
-        }
-
         .portfolio-section {
             padding: 8px;
             text-align: center;
-            background: #c0c0c0;
+            background: #ece9d8;
             border: 2px solid #000;
             border-radius: 2px;
             margin-top: 10px;
@@ -234,7 +263,6 @@
             transition: transform 0.1s;
         }
         
-        /* Легкое поднятие карточек портфолио при наведении */
         .portfolio-item:hover {
             transform: translateY(-2px);
         }
@@ -274,7 +302,6 @@
             color: #000;
             font-weight: bold;
             padding: 3px 8px;
-            cursor: pointer;
             border-radius: 2px;
             font-size: 11px;
         }
@@ -284,24 +311,12 @@
             height: 12px;
             width: 100%;
             position: relative;
-            cursor: pointer;
         }
         .xp-player .progress {
             background-color: #0b75ff;
             height: 100%;
             width: 0;
-            
-            /* Анимированные полоски для прогресс-бара */
-            background-image: linear-gradient(
-                -45deg, 
-                rgba(255, 255, 255, 0.2) 25%, 
-                transparent 25%, 
-                transparent 50%, 
-                rgba(255, 255, 255, 0.2) 50%, 
-                rgba(255, 255, 255, 0.2) 75%, 
-                transparent 75%, 
-                transparent
-            );
+            background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
             background-size: 20px 20px;
             animation: moveStripes 1s linear infinite;
             transition: width 0.1s linear;
@@ -337,16 +352,25 @@
                 <img src="Exit.png">
             </div>
         </div>
+        
+        <div class="menu-bar">
+            <div class="menu-items">
+                <span data-i18n="menuFile">File</span>
+                <span data-i18n="menuEdit">Edit</span>
+                <span data-i18n="menuView">View</span>
+                <span data-i18n="menuHelp">Help</span>
+            </div>
+            <div class="lang-switch">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="ru">RU</button>
+            </div>
+        </div>
+
         <div class="window-body">
             <div class="hero-section">
                 <div class="card">
                     <div class="avatar"></div>
                     
-                    <div class="lang-switch">
-                        <button class="lang-btn active" data-lang="en">EN</button>
-                        <button class="lang-btn" data-lang="ru">RU</button>
-                    </div>
-
                     <h1 data-i18n="heading">nefrozzik</h1>
                     <p class="subtitle" data-i18n="subtitle">Musician</p>
 
@@ -402,6 +426,10 @@
     <script>
         const i18nData = {
             en: {
+                menuFile: 'File',
+                menuEdit: 'Edit',
+                menuView: 'View',
+                menuHelp: 'Help',
                 heading: 'nefrozzik',
                 subtitle: 'Musician',
                 youtube: '▶️ YouTube',
@@ -423,6 +451,10 @@
                 track3: 'In progress...',
             },
             ru: {
+                menuFile: 'Файл',
+                menuEdit: 'Правка',
+                menuView: 'Вид',
+                menuHelp: 'Справка',
                 heading: 'nefrozzik',
                 subtitle: 'Музыкант',
                 youtube: '▶️ YouTube',
