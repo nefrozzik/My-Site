@@ -31,7 +31,8 @@
             content: " ";
             display: block;
             position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
+            top: 0; left: 0; 
+            width: 100%; height: 100%;
             background: 
                 linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
                 linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03)),
@@ -311,7 +312,7 @@
            ========================================= */
         @media (max-width: 650px) {
             body {
-                padding: 6px; /* Уменьшаем отступы по бокам */
+                padding: 6px; 
             }
 
             .window {
@@ -323,10 +324,12 @@
                 height: auto;
                 padding: 20px;
                 text-align: center;
+                justify-content: center;
+                align-items: center;
             }
 
             .welcome-divider {
-                display: none; /* Скрываем полосу, так как на мобилках блоки идут друг под другом */
+                display: none; 
             }
 
             .welcome-left {
@@ -336,6 +339,8 @@
                 border-right: none;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.4);
                 margin-bottom: 25px;
+                width: 100%;
+                flex: unset;
             }
 
             .welcome-left h2 {
@@ -349,7 +354,9 @@
             .welcome-right {
                 padding-left: 0;
                 align-items: center;
+                justify-content: center;
                 width: 100%;
+                flex: unset;
             }
 
             .user-btn {
