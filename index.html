@@ -16,7 +16,7 @@
             padding: 14px;
             font-family: Tahoma, Arial, sans-serif;
             font-size: 10px;
-            background: #3a6ea5; /* Классический цвет фона рабочего стола XP без обоев */
+            background: #3a6ea5; 
             color: #000;
             min-height: 100vh;
             cursor: url("data:image/svg+xml,%3Csvg width='15' height='22' viewBox='0 0 15 22' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1,1 l0,14 l3,-3 l2,5 l2,-1 l-2,-5 l4,0 z' fill='white' stroke='black' stroke-width='1.2'/%3E%3C/svg%3E"), default;
@@ -45,7 +45,6 @@
         #power-screen {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            /* Фирменный градиент экрана приветствия XP */
             background: linear-gradient(to bottom, #002D86 0%, #0046AA 15%, #0053E0 50%, #0046AA 85%, #002D86 100%);
             z-index: 10000;
             display: flex;
@@ -53,7 +52,6 @@
             justify-content: center;
         }
 
-        /* Светящаяся полоса посередине */
         .welcome-divider {
             position: absolute;
             top: 50%; left: 0; width: 100%; height: 2px;
@@ -70,7 +68,7 @@
             height: 300px;
             background: transparent;
             align-items: center;
-            z-index: 2; /* Поверх полосы */
+            z-index: 2;
         }
 
         .welcome-left {
@@ -92,7 +90,6 @@
         
         .welcome-left h2 span { font-weight: bold; }
         .welcome-left h2 span.xp { color: #ff8c00; vertical-align: super; font-size: 24px; }
-
         .welcome-left p { font-size: 16px; opacity: 0.9; margin: 0; }
 
         .welcome-right {
@@ -123,7 +120,7 @@
         .user-icon {
             width: 50px;
             height: 50px;
-            background: #fff; /* Белый фон для иконки */
+            background: #fff; 
             border: 2px solid #fff;
             border-radius: 3px;
             margin-right: 15px;
@@ -135,7 +132,6 @@
             position: relative;
         }
         
-        /* Заглушка для иконки пользователя */
         .user-icon::after {
             content: "👤";
             font-size: 35px;
@@ -151,7 +147,7 @@
             top: 0; left: 0; width: 100vw; height: 100vh;
             background: #000;
             z-index: 9999;
-            display: none; /* Скрыт до нажатия кнопки включения */
+            display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -185,7 +181,6 @@
             box-sizing: border-box;
         }
 
-        /* Аутентичные бегающие синие квадратики */
         .xp-loader-blocks {
             display: flex;
             gap: 2px;
@@ -221,8 +216,8 @@
             0% { background-position: 0 0; }
             100% { background-position: 20px 0; }
         }
-        /* ---------------- */
 
+        /* --- ОКНО --- */
         .window {
             width: min(840px, 95%);
             margin: 0 auto;
@@ -230,7 +225,7 @@
             background: #ece9d8; 
             box-shadow: 2px 2px 0 #fff, 4px 4px 0 #444;
             overflow: hidden;
-            opacity: 0; /* Будет анимировано через JS */
+            opacity: 0; 
             position: relative;
             z-index: 10;
         }
@@ -302,7 +297,7 @@
 
         .xp-player { margin-top: 10px; background: #e8ebf0; border: 2px solid #777; border-radius: 3px; padding: 8px; box-shadow: inset 0 1px 0 #fff; }
         .xp-player .title-bar { display: flex; justify-content: space-between; align-items: center; background: linear-gradient(180deg, #0a4cc5, #003f8c); color: #fff; font-size: 11px; font-weight: bold; padding: 3px 6px; border: 1px solid #000; margin-bottom: 6px; }
-        .xp-player .controls { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+        .xp-player .controls { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
         .xp-player .controls button { background: #d6d6d6; border: 2px outset #fff; color: #000; font-weight: bold; padding: 3px 8px; border-radius: 2px; font-size: 11px; }
         .xp-player .progress-wrap { border: 2px solid #333; background: #fff; height: 12px; width: 100%; position: relative; }
         .xp-player .progress { background-color: #0b75ff; height: 100%; width: 0; background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent); background-size: 20px 20px; animation: moveStripes 1s linear infinite; transition: width 0.1s linear; }
@@ -310,6 +305,74 @@
 
         .platform-links { margin-top: 6px; font-size: 11px; color: #333; }
         .platform-links a { color: #003f8c; text-decoration: none; border-bottom: 1px dotted #003f8c; }
+
+        /* =========================================
+           АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ
+           ========================================= */
+        @media (max-width: 650px) {
+            body {
+                padding: 6px; /* Уменьшаем отступы по бокам */
+            }
+
+            .window {
+                width: 100%;
+            }
+
+            .welcome-panel {
+                flex-direction: column;
+                height: auto;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .welcome-divider {
+                display: none; /* Скрываем полосу, так как на мобилках блоки идут друг под другом */
+            }
+
+            .welcome-left {
+                text-align: center;
+                padding-right: 0;
+                padding-bottom: 25px;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+                margin-bottom: 25px;
+            }
+
+            .welcome-left h2 {
+                font-size: 32px;
+            }
+
+            .welcome-left p {
+                font-size: 14px;
+            }
+
+            .welcome-right {
+                padding-left: 0;
+                align-items: center;
+                width: 100%;
+            }
+
+            .user-btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+
+            .boot-logo {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .boot-logo-text .win {
+                font-size: 28px;
+            }
+            
+            .menu-bar {
+                flex-wrap: wrap;
+                gap: 6px;
+                padding: 4px 8px;
+            }
+        }
     </style>
 </head>
 <body>
