@@ -351,19 +351,32 @@
                 font-size: 14px;
             }
 
+            /* --- СИММЕТРИЧНЫЕ КНОПКИ ДЛЯ МОБИЛЬНОГО --- */
             .welcome-right {
                 padding-left: 0;
-                align-items: center;
+                align-items: flex-start;
                 justify-content: center;
+                flex-direction: row; /* Выстраиваем в ряд */
+                flex-wrap: wrap;
                 width: 100%;
                 flex: unset;
+                gap: 15px; /* Одинаковое расстояние между кнопками */
             }
 
             .user-btn {
-                width: 100%;
-                max-width: 280px;
-                justify-content: center;
+                width: 135px; /* Фиксированная ширина для идеальной симметрии */
+                max-width: unset;
+                flex-direction: column; /* Иконка сверху, текст снизу */
+                justify-content: flex-start;
+                text-align: center;
+                padding: 10px;
             }
+
+            .user-btn .user-icon {
+                margin-right: 0;
+                margin-bottom: 10px; /* Отступ от иконки до текста */
+            }
+            /* ------------------------------------------- */
 
             .boot-logo {
                 flex-direction: column;
@@ -394,13 +407,13 @@
                 <p data-i18n="welcomeText">Чтобы начать работу, кликните свое имя пользователя</p>
             </div>
             <div class="welcome-right">
-                <button class="user-btn" onclick="bootSystem('ru')">
-                    <div class="user-icon"></div>
-                    <div class="user-info"><b>Русский</b><span>Russian Language</span></div>
-                </button>
                 <button class="user-btn" onclick="bootSystem('en')">
                     <div class="user-icon"></div>
                     <div class="user-info"><b>English</b><span>International</span></div>
+                </button>
+                <button class="user-btn" onclick="bootSystem('ru')">
+                    <div class="user-icon"></div>
+                    <div class="user-info"><b>Русский</b><span>Russian Language</span></div>
                 </button>
             </div>
         </div>
